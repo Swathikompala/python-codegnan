@@ -1,0 +1,2 @@
+Speechrecognition
+pyttsx3
