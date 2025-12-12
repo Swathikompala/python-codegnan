@@ -1,36 +1,23 @@
-import Login
-import withdraw
-import Deposit
-import Transfer
-import BalanceEnquiry
-import Logout
-import ministatement
-
+from single_emai_sender import single_email_sender
+from bulk_email_sender import bulkEmailSender
 if __name__ == "__main__":
-    print("Welcome to the bank")
-    username=int(input("Enter your account number:"))
-    password=int(input("Enter your password :"))
-    login_val=Login.login(username=username,password=password)
-    while login_val:
-        operations=("1.withdraw \n",
-                        "2. deposit \n",
-                        "3.transfer \n",
-                        "4. ministatement \n",
-                        "5.Blance enquiry \n"
-                        "6.logout \n")
-        print(*operations)
-        choice=int(input("select your operation"))
-        if choice==1:
-                withdraw.withdraw(account=username,withdraw_amount=int(input("Enter withdraw amount")))
-        elif choice==2:
-                Deposit.deposit(account=username,deposit_amount=int(input("Enter deposit amount")))
-        elif choice==3:
-                Transfer.transfer(sender=username,reciver=int(input("enter the account number")),transfer_ammount=int(input("enter transfer amount")))
-        elif choice==4:
-                ministatement.mini_statement(account=username)
-        elif choice==5:
-                BalanceEnquiry.blance_enquiry(account=username)
-        elif choice==6:
-                Logout.logout(username)
-        else:
-                print("Select your operation in Between 1 to 5 ")
+    print("Welcome to email sender using python")
+    choice = int(input("1. single email sender \n 2. Bulk email sender \n \
+                       Enter your operations : "))
+    #reciever_email = input("Enter Reciever email: ")
+    subject = input("Enter subject:")
+    body = input("Enter body msg:")
+    if choice == 1:
+        reciever_email = input("Enter Reciever mails : ")
+         #single body email function calling
+
+        single_email_sender(to_email = reciever_email, subject = subject, body = body)
+        print(f"{reciever_email} to Email send successfully")
+
+    elif choice == 2:
+        emails = input("Enter list of emails separated by comma:").split(",")
+        emails = [e.strip() for e in emails]
+        bulkEmailSender(list_of_emails = emails, subject = subject, body = body)
+        print("Emails sent successfully to all recipients")
+    else:
+        print("select valid operations")
